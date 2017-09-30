@@ -3,12 +3,13 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: LiCan's blog
-subtitle: personal blog
-description:
-author: LiCan
-language:
+title: 璨的博客
+subtitle: 技术分享，生活记录，随写......
+description: 爱偷懒的职业程序员
+author: 璨然星光
+language: zh-Hans
 timezone:
+avatar: https://avatars1.githubusercontent.com/u/14714291?v=4&s=400&u=b3ee4a504131f90aab9aed0c05fdc09abdf0b205
 
 # URL
 ## If your site is put in a subdirectory, set url as 'http://yoursite.com/child' and root as '/child/'
@@ -78,3 +79,15 @@ theme: next
 ## Docs: https://hexo.io/docs/deployment.html
 deploy:
   type:
+
+duoshuo:
+  enable: true
+  shortname: your-duoshuo-shortname
+
+menu:
+  home: /
+  archives: /archives
+  tags: /tags
+
+social:
+  GitHub: https://github.com/lican09
