@@ -75,4 +75,10 @@ db.A.createIndex({c: 1, another: 1}, {unique: true, background: true, partialFil
 
 <b> *Done!* 现在的解决方案已经在拥有上千万数据的MongoDB集群上平稳运行了。</b>
 
+#### 总结
+
+**缺点**: *由于一个字段创建了两个索引，会占用更多的内存。本项目中大约多占用了400M内存，在可接受的范围内。*
+
+**优点**: *只需添加三个特殊索引，无需修改原来的索引创建，同时业务代码修改较小。对于线上的数据库影响较小，且能满足业务需求。*
+
 <div id="SOHUCS" sid="mongodb index"></div>
