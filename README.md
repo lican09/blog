@@ -7,7 +7,7 @@
 
 * beego, tornado, flask, django 四个web框架的的性能实测对比
 
-* 如何编写一个可控制并发数量的http请求的脚本
+* 如何用python异步并发http请求之gevent版
 
 * mongodb数据分析方法aggregate实践与进阶
 
