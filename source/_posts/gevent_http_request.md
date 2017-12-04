@@ -106,5 +106,8 @@ gevent.spawn方法会添加n个协程，以达到并发请求量为n的效果。
 
 gevent使用协程达到并发请求的效果，相较于多进程更加轻量级，因此更加节省运行资源。
 
+
+*申明：该网站所有文章均为原创，转载请著名出处:`http://blog.lican.site`，谢谢！*
+
 <div id="SOHUCS" sid="gevent_http_request"></div>
 

@@ -83,4 +83,7 @@ db.A.createIndex({c: 1, another: 1}, {unique: true, background: true, partialFil
 
 **优点**: *只需添加三个特殊索引，无需修改原来的索引创建，同时业务代码修改较小。对于线上的数据库影响较小，且能满足业务需求。*
 
+
+*申明：该网站所有文章均为原创，转载请著名出处:`http://blog.lican.site`，谢谢！*
+
 <div id="SOHUCS" sid="mongodb index"></div>

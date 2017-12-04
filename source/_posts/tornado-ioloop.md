@@ -73,4 +73,6 @@ if __name__ == "__main__":
 * 相较于pyhton的另外两个流行的web框架 Flask和Django，Tornado所支持的第三方库较少，且开发难度较大。
 
 
+*申明：该网站所有文章均为原创，转载请著名出处:`http://blog.lican.site`，谢谢！*
+
 <div id="SOHUCS" sid="tornado_ioloop"></div>
