@@ -1,7 +1,7 @@
 ---
 title: Tornado异步接口正确编写方法
 date: 2017-12-04 20:52:17
-tags: python tornado ioloop
+tags: python
 ---
 
 ### Tornado简介:
