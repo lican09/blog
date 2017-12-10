@@ -39,8 +39,8 @@ if __name__ == "__main__":
     tornado.ioloop.IOLoop.current().start()
 ```
 
-该示例为同步处理的写法，项目开发中考虑到服务器的性能，一般不会这样写代码。
-想了解异步处理的写法，请继续往下看。
+该示例为同步阻塞的写法，项目开发中考虑到服务器的性能，一般不会这样写代码。
+想了解异步非阻塞的写法，请继续往下看。
 
 ### 一个更高级的"Hello world"示例(异步非阻塞):
 
@@ -70,7 +70,7 @@ if __name__ == "__main__":
     tornado.ioloop.IOLoop.current().start()
 ```
 示例中有一个异步非阻塞的`GET`方法，其中方法`foo`是一个有io等待的方法为`get`所调用。
-每一个异步方法都需要用加上装饰器`@gen.corountine`，并使用`yield`来异步调用;
+每一个异步方法都需要加上装饰器`@gen.corountine`，并使用`yield`来异步调用;
 这是Tornado官方推荐的写法，不过还有其他异步写法，请自行查阅[官方文档](http://www.tornadoweb.org)。
 
 ### 一种异步并行处理的写法：
@@ -96,26 +96,26 @@ def get(self):
 ```
 上面代码中，`AsyncHTTPClient`是Tornado内置的一个异步http client方法，
 `response1` 和 `response2` 是同时并发的执行，这两个方法完成后，
-执行`response3` 和`response4` 的并发请求。并发运行异步方法可以节省大量io等待时间，
+执行`response3` 和`response4` 的并发请求。在适当情况下，异步并发运行可以节省大量io等待时间，
 是一种提高服务器性能的方法。
 
 ### 总结
 
-*笔者工作中对Tornado, Django, Flask这三个web框架均有不少的使用经验, 一下是个人经验总结:*
+*笔者工作中对Tornado, Django, Flask这三个web框架均有不少的使用经验, 以下是个人经验总结:*
 
 * Tornado的优势是长连接。在长连接高并发的场景下优先选择该web框架。
 
-* 对于个人学习是有好处的。从事Tornado的项目开发会使你对于python的异步处理有更深入的理解。
+* 对于个人学习是有好处的。完成一个Tornado的项目开发会使你对于python的异步处理有更深入的理解(笔者亲身感受)。
 
-* 在只有短连接请求的场景下，tornado相对于gevent的性能并没有太大优势。
+* 在只有短连接请求的业务场景下，tornado相对于gevent的性能并没有太大优势。
 此时，推荐选择Flask 或 Django等同步网络框架 + `gevent`的方案。
 
-* 相较于python的另外两个流行的web框架：Flask和Django，Tornado所支持的异步第三方库较少，
+* 相较于python的另外两个流行的web框架：Flask和Django，Tornado所支持的异步第三方库较少；
 而且各种原生支持异步连接数据库(比如redis,mysql,mongodb)的第三方库很多功能也不够完善，开发门槛和难度相对较高。
 
 * 对于不会使用的新手，很容易写成同步的接口。笔者就曾见过有同事用tornado框架写同步接口的项目。
 
 
-*申明：该网站所有文章均为原创，转载请著名出处:`http://blog.lican.site`，谢谢！*
+** *申明：该网站所有文章均为原创，转载请著名出处:`http://blog.lican.site`，谢谢！* **
 
 <div id="SOHUCS" sid="tornado_ioloop"></div>
