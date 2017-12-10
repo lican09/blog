@@ -7,7 +7,7 @@
 
 * ~~如何用python异步并发http请求之gevent版~~
 
-* tornado编写并发请求的方法
+* ~~Tornado异步接口正确编写方法~~
 
 * mongodb数据分析方法aggregate实践与进阶
 
