@@ -20,8 +20,9 @@ tags: python
 * `IOLoop`实例会不断轮询并处理当前活跃的连接。
 
 
-### 一个简单的“Hello world"示例
+### 一个简单的“Hello world"示例(同步阻塞):
 
+示例一:
 ```
 import tornado.ioloop
 import tornado.web
@@ -38,22 +39,27 @@ if __name__ == "__main__":
     tornado.ioloop.IOLoop.current().start()
 ```
 
-### 一个异步的"Hello world"示例:
+该示例为同步处理的写法，项目开发中考虑到服务器的性能，一般不会这样写代码。
+想了解异步处理的写法，请继续往下看。
 
+### 一个更高级的"Hello world"示例(异步非阻塞):
+
+示例二:
 ```
 import tornado.ioloop
 import tornado.web
-import tornado.gen
+from tornado import gen
 
 class MainHandler(tornado.web.RequestHandler):
 
-    @tornado.gen.corountine
+    @gen.corountine
     def get(self):
         res = yield foo()
         raise gen.Return(self.finish(res))
 
-    @tornado.gen.corountine
+    @gen.corountine
     def foo():
+        gen.sleep(10)
         raise gen.Return("Hello, world")
 
 if __name__ == "__main__":
@@ -63,14 +69,51 @@ if __name__ == "__main__":
     application.listen(8888)
     tornado.ioloop.IOLoop.current().start()
 ```
+示例中有一个异步非阻塞的`GET`方法，其中方法`foo`是一个有io等待的方法为`get`所调用。
+每一个异步方法都需要用加上装饰器`@gen.corountine`，并使用`yield`来异步调用;
+这是Tornado官方推荐的写法，不过还有其他异步写法，请自行查阅[官方文档](http://www.tornadoweb.org)。
+
+### 一种异步并行处理的写法：
+
+示例三:
+```
+@gen.coroutine
+def get(self):
+    http_client = AsyncHTTPClient()
+
+    response1, response2 = yield [
+        http_client.fetch(url1),
+        http_client.fetch(url2)
+    ]
+
+    response_dict = yield dict(
+        response3=http_client.fetch(url3),
+        response4=http_client.fetch(url4)
+    )
+    response3 = response_dict['response3']
+    response4 = response_dict['response4']
+
+```
+上面代码中，`AsyncHTTPClient`是Tornado内置的一个异步http client方法，
+`response1` 和 `response2` 是同时并发的执行，这两个方法完成后，
+执行`response3` 和`response4` 的并发请求。并发运行异步方法可以节省大量io等待时间，
+是一种提高服务器性能的方法。
 
 ### 总结
 
-*笔者工作中对Tornado, Django, Flask这三个web框架均有使用经验, 在此作一下个人经验总结:*
+*笔者工作中对Tornado, Django, Flask这三个web框架均有不少的使用经验, 一下是个人经验总结:*
 
-* Tornado的优势是长连接。若项目开发中不设计长连接，推荐选择Flask 或 Django等同步网络框架 + `gevent`的方案。
+* Tornado的优势是长连接。在长连接高并发的场景下优先选择该web框架。
 
-* 相较于pyhton的另外两个流行的web框架 Flask和Django，Tornado所支持的第三方库较少，且开发难度较大。
+* 对于个人学习是有好处的。从事Tornado的项目开发会使你对于python的异步处理有更深入的理解。
+
+* 在只有短连接请求的场景下，tornado相对于gevent的性能并没有太大优势。
+此时，推荐选择Flask 或 Django等同步网络框架 + `gevent`的方案。
+
+* 相较于python的另外两个流行的web框架：Flask和Django，Tornado所支持的异步第三方库较少，
+而且各种原生支持异步连接数据库(比如redis,mysql,mongodb)的第三方库很多功能也不够完善，开发门槛和难度相对较高。
+
+* 对于不会使用的新手，很容易写成同步的接口。笔者就曾见过有同事用tornado框架写同步接口的项目。
 
 
 *申明：该网站所有文章均为原创，转载请著名出处:`http://blog.lican.site`，谢谢！*
