@@ -8,8 +8,8 @@ tags: python
 
 [官方介绍](http://tornado-zh.readthedocs.io/zh/latest/guide/intro.html)如下:
 > Tornado 是一个Python web框架和异步网络库，起初由 FriendFeed 开发。
-> 通过使用非阻塞网络I/O, Tornado 可以支持上万级的连接，处理 长连接, WebSockets, 和其他
-> 需要与每个用户保持长久连接的应用。
+> 通过使用非阻塞网络I/O, Tornado 可以支持上万级的连接，处理 长连接, WebSockets,
+> 和其他需要与每个用户保持长久连接的应用。
 
 原理:
 
@@ -69,7 +69,7 @@ if __name__ == "__main__":
     application.listen(8888)
     tornado.ioloop.IOLoop.current().start()
 ```
-示例中有一个异步非阻塞的`GET`方法，其中方法`foo`是一个有io等待的方法为`get`所调用。
+示例中有一个异步非阻塞的`GET`方法，其中方法`foo`是一个有io等待的方法被`get`所调用。
 每一个异步方法都需要加上装饰器`@gen.corountine`，并使用`yield`来异步调用;
 这是Tornado官方推荐的写法，不过还有其他异步写法，请自行查阅[官方文档](http://www.tornadoweb.org)。
 
@@ -101,7 +101,7 @@ def get(self):
 
 ### 总结
 
-*笔者工作中对Tornado, Django, Flask这三个web框架均有不少的使用经验, 以下是个人经验总结:*
+*笔者工作中对Tornado, Django, Flask这三个web框架均有所涉猎, 以下是个人经验总结:*
 
 * Tornado的优势是长连接。在长连接高并发的场景下优先选择该web框架。
 
